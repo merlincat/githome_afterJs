@@ -25,7 +25,7 @@ var app = Vue.createApp({
       if (this.search !== '') {
         axios.get('http://www.omdbapi.com/?apikey=' + OMDB_API_KEY + '&s=' + this.search + '&type=' + this.type + '&y=' + this.year).then(function (resp) {
           _this.result = resp.data;
-        });
+        }); // this.result = resp.data;
       } else {
         console.warn('Enter Search Request');
       }
@@ -36,7 +36,9 @@ var app = Vue.createApp({
       axios.get('http://www.omdbapi.com/?apikey=' + OMDB_API_KEY + '&i=' + imdbID + '&plot=full').then(function (resp) {
         _this2.detail = resp.data;
         _this2.showModal = true;
-      }); // this.showModal = true;
+      }); // this.detail = resp.data;
+      // this.showModal = true;
+      // this.showModal = true;
     }
   }
 });
@@ -78,6 +80,6 @@ app.component('movie_ratings', {
   // this.rt_width=100-parseInt(this.ratings[1].Value);
   // this.mc_width = 100 - parseInt(this.ratings[2].Value.split('/')[0]);
   // },
-  template: "\n    <div class=\"rating_wrap\">\n        <div class=\"rating_item\" v-for=\"rating in ratings_list\" :key=\"rating.Source\">\n            <div class=\"row\">\n                <div class=\"col-8\">\n                    {{rating.Source}}\n                </div>\n                <div class=\"col-4 text-end\">\n                    {{rating.Value}}\n                </div>\n            </div>\n            <div class=\"rating_scale\">\n                <span :style=\"'width: '+rating.Width+'%'\"></span>\n            </div>\n        </div>\n    </div>\n    "
+  template: '#ratings_list'
 });
 app.mount("#app");

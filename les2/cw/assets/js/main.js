@@ -22,6 +22,7 @@ const app = Vue.createApp({
                 .then((resp)=>{
                     this.result = resp.data;
                 });
+            // this.result = resp.data;
            }else{
                console.warn('Enter Search Request');
            }
@@ -33,6 +34,8 @@ const app = Vue.createApp({
                     this.detail = resp.data;
                     this.showModal = true;
                 });
+            // this.detail = resp.data;
+            // this.showModal = true;
             // this.showModal = true;
        }
     }
@@ -74,23 +77,7 @@ app.component('movie_ratings', {
         // this.rt_width=100-parseInt(this.ratings[1].Value);
         // this.mc_width = 100 - parseInt(this.ratings[2].Value.split('/')[0]);
     // },
-    template:`
-    <div class="rating_wrap">
-        <div class="rating_item" v-for="rating in ratings_list" :key="rating.Source">
-            <div class="row">
-                <div class="col-8">
-                    {{rating.Source}}
-                </div>
-                <div class="col-4 text-end">
-                    {{rating.Value}}
-                </div>
-            </div>
-            <div class="rating_scale">
-                <span :style="'width: '+rating.Width+'%'"></span>
-            </div>
-        </div>
-    </div>
-    `,
+    template:'#ratings_list',
 });
 
 app.mount("#app");

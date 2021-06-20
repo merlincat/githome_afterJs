@@ -92,7 +92,23 @@
           </div>
           <!--  -->
     </div>
-    
+    <template id="ratings_list">
+        <div class="rating_wrap">
+            <div class="rating_item" v-for="rating in ratings_list" :key="rating.Source">
+                <div class="row">
+                    <div class="col-8">
+                        {{rating.Source}}
+                    </div>
+                    <div class="col-4 text-end">
+                        {{rating.Value}}
+                    </div>
+                </div>
+                <div class="rating_scale">
+                    <span :style="'width: '+rating.Width+'%'"></span>
+                </div>
+            </div>
+        </div>
+    </template>
 
     <script src="assets/js/vue.global.js"></script>
     <script src="assets/js/axios.min.js"></script>
