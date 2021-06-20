@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acquaintance with Vue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/scss/style.min.css">
+</head>
+<body>
+
+    <div id="app">
+        <div class="container mt-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form v-on:submit="serchMovie">
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="text" class="form-control" v-model="search">
+                            </div>
+                            <div class="col-1">
+                                <select class="form-control" v-model="type">
+                                    <option value="">All</option>
+                                    <option value="movie">Movie</option>
+                                    <option value="series">Series</option>
+                                    <option value="episode">Episode</option>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <input type="number" class="form-control" v-model="year">
+                            </div>
+                            <div class="col-2">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="movie_list row g-2">
+                <div class="card col-3" v-for="item in result.Search" :key="item.imdbID">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="card_img">
+                            <img :src="item.Poster!=='N/A'?item.Poster:'assets/images/img.png'" :alt="item.Title">
+                        </div>
+                        <h3>{{item.Title}}</h3>
+                        <div class="bot_wrap">
+                            <div class="movie_year small">
+                                {{ item.Year}}
+                            </div>
+                            <div class="btn btn-info" @click="details(item.imdbID)">More...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal window for details -->
+        <div class="modal fade" :class="{'show':showModal}" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">{{detail.Title}}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="showModal=false"></button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-5">
+                        <img :src="detail.Poster!=='N/A'?detail.Poster:'assets/images/img.png'" :alt="detail.Title">
+                    </div>
+                    <div class="modal_text col-7">
+                        <h3 class="modal_title">
+                            {{detail.Title}}
+                        </h3>
+                        <movie_ratings :ratings="detail.Ratings"></movie_ratings>
+                        
+                        <div class="modal_released">
+                            {{detail.Released}}
+                        </div>
+                        <div class="modal_genre">
+                            {{detail.Genre}}
+                        </div>
+                        <p class="modal_plot">
+                            {{detail.Plot}}
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="showModal=false">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+    </div>
+    
+
+    <script src="assets/js/vue.global.js"></script>
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
